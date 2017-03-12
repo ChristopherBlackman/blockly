@@ -65,6 +65,7 @@ var fakeDragStack = [];
 
 function start() {
   // Parse the URL arguments.
+  developerColorHelp();
   var match = location.search.match(/dir=([^&]+)/);
   var rtl = match && match[1] == 'rtl';
   document.forms.options.elements.dir.selectedIndex = Number(rtl);
@@ -97,6 +98,7 @@ function start() {
              {controls: true,
               wheel: true,
               startScale: 1.0,
+
               maxScale: 4,
               minScale: .25,
               scaleSpeed: 1.1}
@@ -117,6 +119,24 @@ function start() {
   taChange();
 }
 
+
+function developerColorHelp(){
+	var white  = 'rgb(255,255,255)', blue = 'rgb(0,0,255)', red = 'rgb(255,0,0)';
+
+	var current_page = window.location.href;
+	var rePlayground = /^file[\S]*playground.html$/;
+	var reFile = /^file[\S]*$/;
+
+	if (rePlayground.test(current_page)){
+		//IF threre is file infron AND playground.html at end
+		document.getElementsByTagName('body')[0].style.backgroundColor = white;
+	}else if(reFile.test(current_page)){
+		//IF threre is just a file infront 
+		document.getElementsByTagName('body')[0].style.backgroundColor = red;
+	}else{
+		document.getElementsByTagName('body')[0].style.backgroundColor = blue;
+	}
+}
 function getToolboxElement() {
   var match = location.search.match(/toolbox=([^&]+)/);
   return document.getElementById('toolbox-' + (match ? match[1] : 'categories'));
